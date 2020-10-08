@@ -1,28 +1,28 @@
 package Assignment;
+
 import java.util.Scanner;
 
 public class TicTacToe {
 	public char[][] board;
 	char computerInput = ' ';
 	static char userInput = ' ';
-	
+
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		
+
 		TicTacToe game = new TicTacToe();
-		
+
 		game.createBoard();
-		
-		
-		//UC 2
+
+		// UC 2
 		System.out.println("Player 1: Choose X or O");
-		userInput = scanner.next().charAt(0);	
+		userInput = scanner.next().charAt(0);
 		game.chooseLetter(userInput);
-		
-		//UC 6
+
+		// UC 6
 		game.tossToPlay();
-		
-		//UC 4 and 5
+
+		// UC 4 and 5
 		int row;
 		int column;
 		int again;
@@ -34,110 +34,179 @@ public class TicTacToe {
 				System.out.println("Enter the column number: ");
 				column = scanner.nextInt();
 				column--;
-			}
-			while(row < 0 || row >= 3 || column < 0 || column >= 3);
-		
-		game.makeMove(row, column);
+			} while (row < 0 || row >= 3 || column < 0 || column >= 3);
+
+			game.makeMove(row, column);
+			game.showBoard();
+			System.out.println("Do you want to play again? Enter 1.");
+			again = scanner.nextInt();
+			game.computerPlays();
+			game.resultsForGame();
+		} while (again == 1);
+
+		// UC 3
 		game.showBoard();
-		System.out.println("Do you want to play again? Enter 1.");
-		again = scanner.nextInt();
-		//game.computerPlays();
-		}
-		while(again == 1);
-		
-		//UC 3
-		game.showBoard();
-		
-		
+
 		scanner.close();
 	}
-	
+
 	/**
 	 * UC 1
+	 * 
 	 * @return
-	 */	
-	public void createBoard(){
+	 */
+	public void createBoard() {
 		board = new char[3][3];
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
 				board[i][j] = ' ';
 			}
 		}
 	}
-	
+
 	/**
 	 * UC 2
+	 * 
 	 * @return
-	 */	
-	
+	 */
+
 	public void chooseLetter(int userInput) {
 		do {
-				switch(userInput) {
-					case 'X':
-						computerInput = 'O';
-						break;
-						
-					case 'O':
-						computerInput = 'X';
-						break;
-						
-					default:
-						System.out.println("Input entered is Invalid. Please Enter correct input");
-						break;
-				}
-		}
-		while (userInput !='X'&& userInput !='O');
+			switch (userInput) {
+			case 'X':
+				computerInput = 'O';
+				break;
+
+			case 'O':
+				computerInput = 'X';
+				break;
+
+			default:
+				System.out.println("Input entered is Invalid. Please Enter correct input");
+				break;
+			}
+		} while (userInput != 'X' && userInput != 'O');
 	}
-	
-	
+
 	/**
 	 * UC 3
+	 * 
 	 * @return
-	 */	
+	 */
 	public void showBoard() {
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
 				System.out.print(board[i][j] + " | ");
 			}
 			System.out.println();
 			System.out.println("------------ ");
 		}
 	}
-	
+
 	/**
 	 * UC 4 and 5
+	 * 
 	 * @return
-	 */	
-	public void makeMove(int row, int column) {		
-		if( board[row][column] != ' ') {
+	 */
+	public void makeMove(int row, int column) {
+		if (board[row][column] != ' ') {
 			System.out.println("Cannot insert at this position as it is already filled.");
 		}
-		
-		else {			
+
+		else {
 			board[row][column] = userInput;
-			
-		}		
+
+		}
 	}
-	
+
 	/**
 	 * UC 6
+	 * 
 	 * @return
-	 */	
+	 */
 	public void tossToPlay() {
-		int  num = (int)Math.floor(Math.random() * 10) % 2;
-		if(num == 0) {
+		int num = (int) Math.floor(Math.random() * 10) % 2;
+		if (num == 0) {
 			System.out.println("Computer goes first");
-			//computerPlays();
+			computerPlays();
 		}
-		
+
 		else {
 			System.out.println("User goes first");
 		}
 	}
+
+	public void computerPlays() {
+		int row = (int) Math.floor(Math.random() * 10) % 3;
+		int column = (int) Math.floor(Math.random() * 10) % 3;
+		if (board[row][column] == ' ') {
+			board[row][column] = computerInput;
+			showBoard();
+		} else {
+			computerPlays();
+		}
+	}
+
+	/**
+	 * UC 7
+	 * 
+	 * @return
+	 */
+	public int compare(char a, char b) {
+		return Character.compare(a,b);
+	}
 	
-	 
+	public void resultsForGame() {
+		int user_result = 0;
+		int computer_result = 0;
+		int tie_result = 0;
+		for (int i = 0; i < 3; i++) {
+			if (compare(board[i][0], board[i][1]) == 0 && compare(board[i][0], board[i][2]) == 0) {
+				if (compare(board[i][0], userInput) == 0)
+					user_result++;
+				if (compare(board[i][0], computerInput) == 0) {
+					computer_result++;
+				}
+			}
+			if (compare(board[0][i], board[1][i]) == 0 && compare(board[0][i], board[2][i]) == 0) {
+				if (compare(board[0][i], userInput) == 0) {
+					user_result++;
+				}
+				if (compare(board[i][0], computerInput) == 0) {
+					computer_result++;
+				}
+			}
+		}
+		
+		//DIAGONALS
+		if ((compare(board[0][0], board[1][1]) == 0 && compare(board[1][1], board[2][2]) == 0)
+				|| (compare(board[0][2], board[1][1]) == 0 && compare(board[1][2], board[2][0]) == 0)) {
+			if (compare(board[1][1], userInput) == 0)
+				user_result++;
+			if (compare(board[1][1], computerInput) == 0) {
+				computer_result++;
+			}
+		}
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (board[i][j] != ' ') {
+					tie_result++;
+				}
+			}
+		}
+		if (tie_result == 8) {
+			System.out.println("IT IS A TIE.");
+		}
+		if (user_result > 0) {
+			System.out.println("USER WINS");
+		}
+
+		if (computer_result > 0) {
+			System.out.println("COMPUTER WINS");
+
+		}
+
+	}
+
 }
-
-
-
-
