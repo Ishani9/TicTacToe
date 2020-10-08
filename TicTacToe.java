@@ -18,15 +18,19 @@ public class TicTacToe {
 		userInput = scanner.next().charAt(0);	
 		game.chooseLetter(userInput);
 		
-		//UC 4
+		//UC 4 and 5
 		int row;
 		int column;
-		System.out.println("Enter the row number: ");
-		row = scanner.nextInt();
-		row--;
-		System.out.println("Enter the column number: ");
-		column = scanner.nextInt();
-		column--;
+		do {
+			System.out.println("Enter the row number: ");
+			row = scanner.nextInt();
+			row--;
+			System.out.println("Enter the column number: ");
+			column = scanner.nextInt();
+			column--;
+		}
+		while(row < 0 && row >= 3 && column < 0 && column >= 3);
+		
 		game.makeMove(row, column);
 		
 		//UC 3
@@ -66,7 +70,7 @@ public class TicTacToe {
 						break;
 						
 					default:
-						System.out.println("Enter correct input");
+						System.out.println("Input entered is Invalid. Please Enter correct input");
 						break;
 				}
 		}
@@ -89,12 +93,12 @@ public class TicTacToe {
 	}
 	
 	/**
-	 * UC 4
+	 * UC 4 and 5
 	 * @return
 	 */	
 	public void makeMove(int row, int column) {		
 		if( board[row][column] != ' ') {
-			System.out.println("Cannot insert at this position");
+			System.out.println("Cannot insert at this position as it is already filled.");
 		}
 		
 		else {			
