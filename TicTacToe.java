@@ -9,6 +9,7 @@ public class TicTacToe {
 		TicTacToe game = new TicTacToe();
 		game.createBoard();
 		game.chooseLetter();
+		game.showBoard();
 	}
 	
 	public void createBoard(){
@@ -22,7 +23,7 @@ public class TicTacToe {
 	
 	public void chooseLetter() {
 		Scanner scanner = new Scanner(System.in);
-		char computer;
+		char computer = ' ';
 		char user;
 		do {
 			System.out.println("Player 1: Choose X or O");
@@ -44,6 +45,18 @@ public class TicTacToe {
 		}
 		while (user !='X'&& user !='O');
 	}
+	
+	public void showBoard() {
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				System.out.print(board[i][j]);
+				System.out.print(" | ");
+			}
+			System.out.println();
+			System.out.println("------------ ");
+		}
+	}
+	
 	 
 }
 
