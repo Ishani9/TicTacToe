@@ -13,25 +13,37 @@ public class TicTacToe {
 		
 		game.createBoard();
 		
+		
 		//UC 2
 		System.out.println("Player 1: Choose X or O");
 		userInput = scanner.next().charAt(0);	
 		game.chooseLetter(userInput);
 		
+		//UC 6
+		game.tossToPlay();
+		
 		//UC 4 and 5
 		int row;
 		int column;
+		int again;
 		do {
-			System.out.println("Enter the row number: ");
-			row = scanner.nextInt();
-			row--;
-			System.out.println("Enter the column number: ");
-			column = scanner.nextInt();
-			column--;
-		}
-		while(row < 0 && row >= 3 && column < 0 && column >= 3);
+			do {
+				System.out.println("Enter the row number: ");
+				row = scanner.nextInt();
+				row--;
+				System.out.println("Enter the column number: ");
+				column = scanner.nextInt();
+				column--;
+			}
+			while(row < 0 || row >= 3 || column < 0 || column >= 3);
 		
 		game.makeMove(row, column);
+		game.showBoard();
+		System.out.println("Do you want to play again? Enter 1.");
+		again = scanner.nextInt();
+		//game.computerPlays();
+		}
+		while(again == 1);
 		
 		//UC 3
 		game.showBoard();
@@ -103,9 +115,25 @@ public class TicTacToe {
 		
 		else {			
 			board[row][column] = userInput;
+			
 		}		
 	}
 	
+	/**
+	 * UC 6
+	 * @return
+	 */	
+	public void tossToPlay() {
+		int  num = (int)Math.floor(Math.random() * 10) % 2;
+		if(num == 0) {
+			System.out.println("Computer goes first");
+			//computerPlays();
+		}
+		
+		else {
+			System.out.println("User goes first");
+		}
+	}
 	
 	 
 }
