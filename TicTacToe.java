@@ -3,6 +3,7 @@ package Assignment;
 import java.util.Scanner;
 import java.util.Arrays;
 
+
 public class TicTacToe {
 	public char[][] board;
 	char computerInput = ' ';
@@ -27,8 +28,10 @@ public class TicTacToe {
 		int row;
 		int column;
 		int again;
+		int newGame = 0;
 		
 		do {
+			
 			do {
 				System.out.println("Enter the row number: ");
 				row = scanner.nextInt();
@@ -45,7 +48,15 @@ public class TicTacToe {
 			game.computerPlays();
 			game.resultsForGame();
 			
+			//UC 13
+		
+		
 		} while (again == 1);
+		
+		//UC 13
+		
+		//System.out.println("Do you want to play a new game. Enter 1..");
+		//newGame = scanner.nextInt();
 
 		// UC 3
 		game.showBoard();
@@ -57,6 +68,7 @@ public class TicTacToe {
 	 * UC 1
 	 * 
 	 * @return
+	 * 
 	 */
 	public void createBoard() {
 		board = new char[3][3];
@@ -154,14 +166,14 @@ public class TicTacToe {
 		} 
 		
 		else{
-			computerPlays();		
+			computerPlays();			
 		}
 	}
 	
 	
 	
 	/**
-	 * UC 8 and 9
+	 * UC 8 and 9 and 10
 	 * 
 	 * @return
 	 */
@@ -169,8 +181,27 @@ public class TicTacToe {
 		int[] array = new int[2];
 		int row = 0;
 		int column = 0;
-		int row = (int) Math.floor(Math.random() * 10) % 3;
-		int column = (int) Math.floor(Math.random() * 10) % 3;
+		
+		//UC 10
+		char c = ' ';
+		if (compare(board[0][0], c) == 0) {
+			row = 0;
+			column = 0;
+		}
+		if (compare(board[2][2], c) == 0) {
+			row = 2;
+			column = 2;
+		}
+		if (compare(board[0][2], c) == 0) {
+			row = 0;
+			column = 2;
+		}
+		if (compare(board[2][0], c) == 0) {
+			row = 2;
+			column = 0;
+		}
+		
+		//UC 8 and 9
 		
 		for (int i = 0; i < 3; i++) {
 			if (compare(board[i][0], board[i][1]) == 0) {
