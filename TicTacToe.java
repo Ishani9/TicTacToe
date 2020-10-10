@@ -173,7 +173,7 @@ public class TicTacToe {
 	
 	
 	/**
-	 * UC 8 and 9 and 10
+	 * UC 8 and 9 and 10 and 11
 	 * 
 	 * @return
 	 */
@@ -181,9 +181,34 @@ public class TicTacToe {
 		int[] array = new int[2];
 		int row = 0;
 		int column = 0;
+		char c = ' ';
+		
+		//UC 11
+		
+		if (compare(board[0][1], c) == 0) {
+			row = 0;
+			column = 1;
+		}
+		if (compare(board[1][0], c) == 0) {
+			row = 1;
+			column = 0;
+		}
+		if (compare(board[1][2], c) == 0) {
+			row = 1;
+			column = 2;
+		}
+		if (compare(board[2][1], c) == 0) {
+			row = 2;
+			column = 1;
+		}
+				
+		if (compare(board[1][1], c) == 0) {
+			row = 1;
+			column = 1;
+		}
 		
 		//UC 10
-		char c = ' ';
+		
 		if (compare(board[0][0], c) == 0) {
 			row = 0;
 			column = 0;
