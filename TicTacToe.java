@@ -1,17 +1,17 @@
 package Assignment;
 
 import java.util.Scanner;
-import java.util.Arrays;
-
 
 public class TicTacToe {
 	public char[][] board;
 	char computerInput = ' ';
 	static char userInput = ' ';
+	static int newGame;
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
+		do {
 		TicTacToe game = new TicTacToe();
 
 		game.createBoard();
@@ -28,10 +28,9 @@ public class TicTacToe {
 		int row;
 		int column;
 		int again;
-		int newGame = 0;
-		
+
 		do {
-			
+
 			do {
 				System.out.println("Enter the row number: ");
 				row = scanner.nextInt();
@@ -47,19 +46,18 @@ public class TicTacToe {
 			again = scanner.nextInt();
 			game.computerPlays();
 			game.resultsForGame();
-			
-			//UC 13
-		
-		
+
 		} while (again == 1);
-		
-		//UC 13
-		
-		//System.out.println("Do you want to play a new game. Enter 1..");
-		//newGame = scanner.nextInt();
+
+		// UC 13
+
+		 System.out.println("Do you want to play a new game. Enter 1..");
+		 newGame = scanner.nextInt();
 
 		// UC 3
 		game.showBoard();
+		}
+		while(newGame == 1);
 
 		scanner.close();
 	}
@@ -116,7 +114,7 @@ public class TicTacToe {
 			System.out.println();
 			System.out.println("------------ ");
 		}
-		
+
 	}
 
 	/**
@@ -153,25 +151,23 @@ public class TicTacToe {
 	}
 
 	public void computerPlays() {
-		int row ;
-		int column ;
+		int row;
+		int column;
 		int[] array = new int[2];
 		array = checkForWin();
 		row = array[0];
 		column = array[1];
 		char a = ' ';
-		if (compare(board[row][column] , a) == 0) {
+		if (compare(board[row][column], a) == 0) {
 			board[row][column] = computerInput;
 			showBoard();
-		} 
-		
-		else{
-			computerPlays();			
+		}
+
+		else {
+			computerPlays();
 		}
 	}
-	
-	
-	
+
 	/**
 	 * UC 8 and 9 and 10 and 11
 	 * 
@@ -182,9 +178,9 @@ public class TicTacToe {
 		int row = 0;
 		int column = 0;
 		char c = ' ';
-		
-		//UC 11
-		
+
+		// UC 11
+
 		if (compare(board[0][1], c) == 0) {
 			row = 0;
 			column = 1;
@@ -201,14 +197,14 @@ public class TicTacToe {
 			row = 2;
 			column = 1;
 		}
-				
+
 		if (compare(board[1][1], c) == 0) {
 			row = 1;
 			column = 1;
 		}
-		
-		//UC 10
-		
+
+		// UC 10
+
 		if (compare(board[0][0], c) == 0) {
 			row = 0;
 			column = 0;
@@ -225,108 +221,97 @@ public class TicTacToe {
 			row = 2;
 			column = 0;
 		}
-		
-		//UC 8 and 9
-		
+
+		// UC 8 and 9
+
 		for (int i = 0; i < 3; i++) {
 			if (compare(board[i][0], board[i][1]) == 0) {
-				
-					row = i;
-					column = 2;
-					
-				
+
+				row = i;
+				column = 2;
+
 			}
 			if (compare(board[i][2], board[i][1]) == 0) {
-				
-					row = i;
-					column = 0;
-					
-				
+
+				row = i;
+				column = 0;
+
 			}
 			if (compare(board[i][2], board[i][0]) == 0) {
-				
-					row = i;
-					column = 1;
-					
+
+				row = i;
+				column = 1;
+
 			}
 		}
-			
-			//columns
+
+		// columns
 		for (int i = 0; i < 3; i++) {
 			if (compare(board[0][i], board[1][i]) == 0) {
-				
-					row = 2;
-					column = i;
-					
-				
+
+				row = 2;
+				column = i;
+
 			}
 			if (compare(board[0][i], board[2][i]) == 0) {
-				
-					row = 1;
-					column = i;
-					
-				
+
+				row = 1;
+				column = i;
+
 			}
 			if (compare(board[2][i], board[1][i]) == 0) {
-				
-					row = 0;
-					column = i;
-					
+
+				row = 0;
+				column = i;
+
 			}
 		}
-		
-		
-		
-		//Diagonals
+
+		// Diagonals
 		if (compare(board[1][1], board[2][2]) == 0) {
-			
-				row = 0;
-				column = 0;
-			
+
+			row = 0;
+			column = 0;
+
 		}
 		if (compare(board[1][1], board[0][0]) == 0) {
-			
-				row = 2;
-				column = 2;
-			
+
+			row = 2;
+			column = 2;
+
 		}
 		if (compare(board[2][2], board[0][0]) == 0) {
-			
-				row = 1;
-				column = 1;
-			
+
+			row = 1;
+			column = 1;
+
 		}
-		
-		
-		
-		//d2
+
+		// d2
 		if (compare(board[0][2], board[1][1]) == 0) {
-			
-				row = 2;
-				column = 0;
-			
+
+			row = 2;
+			column = 0;
+
 		}
 		if (compare(board[0][2], board[2][0]) == 0) {
-			
-				row = 1;
-				column = 1;
-			
+
+			row = 1;
+			column = 1;
+
 		}
 		if (compare(board[1][1], board[2][0]) == 0) {
-			
-				row = 0;
-				column = 2;
-			
+
+			row = 0;
+			column = 2;
+
 		}
-		
-		
-	
+
 		array[0] = row;
 		array[1] = column;
-		
+
 		return array;
 	}
-	
 
 	/**
 	 * UC 7
@@ -334,9 +319,9 @@ public class TicTacToe {
 	 * @return
 	 */
 	public int compare(char a, char b) {
-		return Character.compare(a,b);
+		return Character.compare(a, b);
 	}
-	
+
 	public void resultsForGame() {
 		int user_result = 0;
 		int computer_result = 0;
@@ -358,8 +343,8 @@ public class TicTacToe {
 				}
 			}
 		}
-		
-		//DIAGONALS
+
+		// DIAGONALS
 		if ((compare(board[0][0], board[1][1]) == 0 && compare(board[1][1], board[2][2]) == 0)
 				|| (compare(board[0][2], board[1][1]) == 0 && compare(board[1][2], board[2][0]) == 0)) {
 			if (compare(board[1][1], userInput) == 0)
@@ -376,18 +361,18 @@ public class TicTacToe {
 				}
 			}
 		}
-		if (tie_result == 8 ) {
+		if (tie_result == 8) {
 			System.out.println("IT IS A TIE.");
-			//System.exit(1);
+			System.exit(0);
 		}
 		if (user_result > 0) {
 			System.out.println("USER WINS");
-			//System.exit(1);
+			System.exit(0);
 		}
 
 		if (computer_result > 0) {
 			System.out.println("COMPUTER WINS");
-			//System.exit(1);
+			System.exit(0);
 
 		}
 
